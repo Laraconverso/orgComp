@@ -1,0 +1,29 @@
+Discos/ componentes (U5 y U6)
+
+Formulas discos 
+Capacidad de un disco  = superficies x cilindros x sectoresp/pista x bytes sector
+
+velocidad de transferencia = r x sectores por pista x bytes p sector
+
+tiempo de transferencia =  b/rN con b son los bytes a transferrir, 
+                                r es la velocidad y N es la catidad de bytes por pista
+
+tiempo de acceso =  t.seek promedio + tiempo de latencia promedio 
+
+tiempo total lectura/ escritura : tseek + 1/2r + tiempo de transferencia 
+
+
+//// 
+Formulas componentes 
+
+MIPS= frecuencia reloj/ cpi e * 10^6
+
+CPIefectivo = suma(cpix cant de instrucciones)/total de instrucciones ejecutadas
+
+tiempo de ejecucion = (total de instrucciones * cpi efectivo)/ frecuencia reloj
+
+con acceso aleatorio = 1/tiempo de ciclo 
+
+sin acceso aleatorio = t prom para leer/escribir = t prom de acceso  + numero de byts /tasa de transferencia 
+
+

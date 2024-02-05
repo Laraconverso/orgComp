@@ -1,0 +1,173 @@
+MAQUINA ELEMENTAL 
+1)
+En AA hay un numero entero sin signo. en BB hay otro. Multiplicarlo y guardarlo en CC.
+el programa empieza en la direccion de memoria 00. 
+
+00 12AA ;guardo lo de [AA] en el registro 1 
+02 13BB ;guardo lo de [BB] en el registro 2 
+04 2000 ;escribo 0000 0000 en el registro 4. 
+06 2201 ; escribo 0000 0001 en el registro 5.
+08 2400 ;cargo en r4 0000 0000 
+0A B312 ;compara el contenido de r3 con r0 si es igual, salta a la instruccion de [12] sino,
+                            ejecuta la siguiente instruccion (se encuentra en 0C)
+0C 5442 ;suma el contenido de R2 y R4 y lo guarda en el registro 4 
+0E 5001 ;suma el contenido de R0 y R1 y lo guarda en R0. 
+10 B00A ;salto incondicional (compara r0 con r0) a la instruccion de 0A.
+12 34CC ; guarda lo que se encuenrtra en el registro 4 en la direccion de memoria [CC]
+14 C000 ;fin del programa 
+
+2)Almacenar en el registro R3 un dato cuya dirección se encuentra en la dirección 0C. Éste
+dato puede ser el primero de los elementos de un vector.
+
+00 2213 ; guarda en R2 13 hexa => 0001 0011. se carga la primera parte de la intruccion 130E
+02 110C ; guarda en r1 lo que se encuenrta en 0C ( en este caso 0E)
+04 3208 ;  almacena lo del registro 2 en la direccion 08. 
+06 3109 ; almacena lo del registro 1 en la direccion 09. 
+08 8000 ; no importa que haya aca va a ser modificado 
+0A C000 ; fin del prigrama 
+0C 0E ; dato 
+0E B5 ; dato  
+
+deberia resultar [08] = 13
+                 [09] = 0E
+
+3)Sumar los elementos de un vector con los siguientes datos:
+La dirección de comienzo de los datos se encuentra almacenada en 34.
+La longitud del vector se encuentra almacenada en 36.
+El resultado de la sumatoria se almacena en 38.
+El programa se inicia en la dirección 12.
+
+12 1134 ; guardo en R1 lo que se encuentra en [34]
+14 1236 ; guardo en R2 lo que se encuentra en [36]
+16 2500 ; guardo en R5 0000 0000 va a ser donde guarde el resultado 
+18 2400 ; r4 = 0000 0000 , va a ser el contador 
+1A 2301 ; R3 = 1 para incrementar direcciones y contador de iteraciones
+1C 2612 ; cargo R6 con 12_hexa = 0001 0010
+1E 3622 ; cargo lo de R6 en [22]
+20 3123 ; cargo lo de r1 en [23]
+22 8888 ; indiferente 
+24 5443 ; suma r4+r3 y almacena en r4. 
+26 5552 ; suma lo de r5 y r2 y lo guarda en r5
+28 B430 ; compara lo de r0 con r4 si es igual salta a [30]
+2A 5113 ; suma lo de r1 y 3 y lo guarda en R1 
+2C 3134 ; guarda lo de r1 en [34]
+2E B020 ; salto incondicional (compara r0 con r0)
+30 3538 ; guarda lo de r5 en [38]
+32 C000 ; fin del programa
+
+34 3A00 
+36 0400
+38 0000
+3A 0203
+3C 0104 
+
+4)Detectar si en la dirección 79 está el número 5.
+
+20 1179 ;Se trae de la dirección 79 el dato y se lo guarda en R1.
+22 2005 ;Se guarda en el registro R0 el número 5.
+24 B134 ;Se compara el registro R0 = 5 con R1. Si es diferente continúa en la dirección 26.
+            Si son iguales (R0 = R1) la siguiente instrucción está en la dirección 34.
+26 2301 ; almaceno en r3 1 
+28 5112 ;sumo los registro 1 y 3 y los almaceno en 1 
+2A B024 ;salto incondicional a la instruccion de [24]
+...
+34 C000 ;fin del programa
+
+5) mayor-menor
+
+00 1160  Guardo en R1 el contenido de la celda 60
+02 1261  Guardo en R2 el contenido de la celda 61
+04 23FF  Almaceno en R3 el número 11111111
+06 9332  Aplico XOR entre R3 y R2 y lo guardo en R3
+08 2401  Almaceno en R4 el número 00000001 
+0A 5443  Sumo R4 y R3 y lo guardo en R4
+0C 5441  Sumo R4 y R1 y lo guardo en R4
+0E 2080  Almaceno en R0 el número 10000000
+10 8504  Aplico AND entre R0 y R4 y lo guardo en R5
+12 B51A  Si R5 = R0 salto a la dirección 1A
+14 3170  Guardo el contenido de R1 en la celda 70
+16 3271  Guardo el contenido de R2 en la celda 71
+18 B01E  Salto incondicionalmente a 1E
+1A 3270  Guardo el contenido de R2 en la celda 70
+1C 3171  Guardo el contenido de R1 en la celda 71
+1E C000  Termino el programa
+
+
+6) parcialito- Detectar si el numero que estaba en la direccion 2A era negativo,
+ en caso afirmativo guardar el complemento del numero en la direccion A2 
+  sino lo es guardar en A2 el -1. Comienza en la direccion B2.
+ 
+B2 112A  R1 = X1101100
+B4 2080  R0 = 10000000
+B6 8201  R2 = X0000000
+B8 23FF  R3 = 11111111
+BA B2C0  Si R2 = R0 Negativo
+BC 33A2  Se guarda el -1 en A2
+BE B0C8  Salta al fin del programa
+C0 9413  XOR para invertir los bits del numero original R4 = 00010011
+C2 2501  R5 = 00000001
+C4 5445  R4 Complemento del numero que estaba en 2A
+C6 34A2  Se guarda el numero original complementado en A2
+C8 C000  Fin de programa
+
+7) Se pide la resta de lo que esta en la direccion AA-BB y guardarlo en la direccion CC
+en la Dir AA esta 1B
+en la Dir BB esta AA
+
+02  10AA     R0 = 00011011 ; se carga el R0 con lo que se encuentra en AA.
+04  12BB     R2 = 10101010 ; se guarda en R2 lo que se encuentra en BB. 
+06  21FF     R1 = 11111111 guardo en R1 FF_hexa = 1111 1111
+08  2301     R3 = 00000001 guardo en R3 01_hexa = 0000 0001
+0A  9412     R4 = 01010101 XOR de R1 y R2 y lo guardo en R4
+0C  5434     R4 = 01010110 Sumo lo que se encuentra en R4 
+0E  5504     R5 = R0 + R4 
+10  35CC
+12  C000
+
+8) parcialito- En las celdas 15(16) y 25(16) se encuentran almacenados dos números X e
+Y. Efectuar X + Y almacenando el resultado en la celda 30(16). 
+El programa comienza en la dirección A0.   
+
+A0 1115 -> Cargo contenido el contenido de 15 al Registro 1 
+A2 1225 -> Cargo contenido el contenido de 25 al Registro 2
+A4  5312 -> sumo el contenido de los registro 1 y 2 y guardo en registro 3
+A6  3330 -> almaceno el contenido del registro 3 en la dirección de memoria 30
+A8 c000 -> fin programa 
+
+9) Detectar si el número que está en la dirección 2A es negativo,
+ en caso que sea sacarle el complemento y guardarlo a A2, 
+ si no lo es cargar en A2 el FF, el programa comienza en la dirección B2.
+
+B2   112A -> Cargo lo de 2A en R1
+B4   2280 -> Cargo A R2 1000 0000
+B6   8312 -> AND entre 1 Y 2 y guardo en R3
+B8   2000 ->  R0 = 00000000
+BA   24FF -> carga el FF en R4
+BC   B3C8 -> evalua si lo de R3 es igual a lo de R0.  de serlo salta a c6
+BE  2601     R6 = 00000001 -> carga en r6 0000 0001
+C0  9714     R7 = 01010101 -> XOR entre r1 y r4 y guarda en r7 
+C2  5867    R8 = 01010110  suma lo de r6 y r7 y almacena en r8
+C4  38A2     Guarda el resultado (lo de r8) en A2 
+C6  B0CA -> salta a ca 
+C8  34A2 -> carga FF en A2
+CA. C000 -> cierre. 
+
+10)Verificar si los bits 2 y 5 del número que está en la dirección 3B son iguales 
+en caso afirmativo cambiar 1 por 0 o 0 por unos, 
+en caso contrario poner los 2 bits en 1, se comienza desde la dirección 04
+
+XX?XX?XX -> número que se encuentra en [3B]
+00100100 -> mascara ( 24 en hexa)
+04 113B -> R1 = [3B] 
+06 2024 -> R0 = 00100100 
+08 8212 -> R2 = R1 AND R0 
+0A B216 -> si R0 y R2 son iguales salta al espacio 16
+0C 2000 -> R0 = 00000000 
+0E B216  -> si R0 y R2 son iguales Salta a 16
+10 2024  -> R0 = 00100100 
+12 7412   -> R4 = R2 OR R1 
+14 B01A -> Salta a 1A 
+16 2024 -> R0 = 00100100 
+18 9412 -> R4 = R2 XOR R1 
+1A 343B -> Se guarda en el mismo espacio de memoria [3B]
+1C C000 ->Fin del programa 
