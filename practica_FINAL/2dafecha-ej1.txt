@@ -1,0 +1,16 @@
+Sistemas de numeracion 
+En una ALU de 8 bits realizar las siguientes operaciones considerando los operandos en complemento a 2.
+Obtener el resultado y justificar si se excede o no al rango de representacion. 
+a)    55_h
+    - BB_h    
+    --------
+
+Paso a binario: 55_h = 01010101_2, con el complemento a 2 queda igual.
+Paso a binario: BB_h = -10111011_2, hago complemento a 2 NOT(10111011)+1 = 01000101_2
+
+hago la cuenta 01010101_2 + 01000101_2 = 10101011_2
+
+
+b)    F6_h
+    - 5F_h    
+    --------
