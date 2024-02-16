@@ -27,3 +27,6 @@ con acceso aleatorio = 1/tiempo de ciclo
 sin acceso aleatorio = t prom para leer/escribir = t prom de acceso  + numero de byts /tasa de transferencia 
 
 
+//////////////////
+DISCOS 
+preguntas

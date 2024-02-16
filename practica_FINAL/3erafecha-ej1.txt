@@ -1,0 +1,182 @@
+U1
+a) A2-73
+ 1010 0010    A
+-0111 0011  - B
+___________
+ 1000 1101   Cb(B)
++1010 0010  + A
+___________
+10010 1111 
+C = 1 es el 1 que me llevé y que quedó más a la izquierda que el bit más significativo.
+V = 1 es que el resultado no entra en 8 bits. Se necesitan 9. Me doy cuenta porque los bits de signo no son coherentes ya que se suman dos negativos y el rsultado da positivo.
+N = 0 el resultado no es negativo.
+Z = 0 el resultado no dió cero
+P = 1 porque los 5 unos del resultado más éste bit de paridad dan una cantidad par de unos (6).
+
+b) B5 - A7
+
+ A:   1011 0101
+-B:  -1010 0111
+_______________
+Cb(B):0101 1001
++A:  +1011 0101
+_________________
+     10000 1110
+C = 1
+V = 0 porque el resultado de la suma de un número positivo más un número negativo siempre está en el medio de esos dos. No puede ser mayor que el positivo ni menor que el negativo.
+N = 0 porque el signo del resultado es positivo
+z = 0
+P = 1
+
+U2
+Se tiene 2 números en representación de enteros en las direcciones de memoria BB y CC. Se
+pide hacer la resta de BB-CC (del contenido de esas direcciones) y determinar si el resultado
+dio negativo o no. En caso afirmativo dejar en EE el complemento a la base del resultado, en
+caso contrario dejar en EE el resultado. El punto de carga es la dirección 20.
+
+20 11BB
+22 12CC
+24 23FF
+26 2401
+28 9523
+2A 5554
+2C 5651
+2E 2000
+30 2780
+32 8867
+34 B83A si R8 = R0 salta a 3A
+Hasta aquí copié tu programa. A partir de aquí tenes error al no hallar el complemento a la base del resultado.
+36 9963
+38 5694
+3A 36EE
+
+U3
+
+; Dos cadenas de caracteres, A y B, de longitudes iguales a 10 que comienzan en las direcciones
+;0200h la cadena A y 0300h la cadena B.
+;Armar, una cadena de caracteres C a partir de la dirección 0400h con cada
+;elemento de la cadena A y luego con cada elemento de la cadena B (EJ: Cad A xxxxxxxxxxx, Cad
+;B yyyyyyyyyy, en C quedara xxxxxxxxxxyyyyyyyyyy. Se pide que la primera cadena titile y que la
+;segunda tenga fondo blanco y letras en rojo. El programa comienza en la dirección 0100h
+
+org 100h
+
+mov cx,000Ah
+dec cx
+mov bx,0400h
+mov di, 0200h
+mov si, 0300h
+primera: mov ax,[di]
+mov ah, 8h
+mov [bx],ax
+inc di
+inc bx
+inc bx
+loop primera
+mov cx, 000ah
+dec cx
+segunda:mov ax,[si]
+mov ah, 0F4h
+mov [bx], ax
+inc si
+inc bx
+inc bx
+loop segunda
+int 20h
+
+ret
+
+U4
+@Escribir un código ARM para el procesador que controla un detector de presencia que 
+@consiste en y un sensor y una alarma. 
+@El mapeo de memoria es el siguiente:
+@La dirección FF200040h contiene un 1 si el sensor detecta presencia o un 0 sin no la detecta.
+@La dirección FF200000h hace sonar la alarma si su contenido es un 1 y no suena si es 0.
+@ Simulador https://cpulator.01xz.net/?sys=arm-de1soc
+
+.equ SENSOR, 0xFF200040	 @ la dirección del sensor de presencia
+.equ ALARMA, 0xFF200000	 @ la dirección de la alarma
+
+.global _start
+_start:
+		ldr r0,=SENSOR
+		ldr r1,[r0]      @ lectura del dispositivo de entrada (sensor de presencia) almacenada en r1
+		
+		ldr r0,=ALARMA
+		str r1,[r0]		 @ escritura en el dispositivo de salida (alarma)
+		
+		.end
+		
+U5
+Diseñar la memoria principal de una computadora que tiene 1 GB de memoria ROM y
+2 GB de memoria RAM, ambas memorias son de 8 bits de datos. Para la memoria ROM se
+dispone de dos circuitos integrados de 256 MB, y uno de 512 MB, todas de 4 bits de palabra.
+Para la memoria RAM se tienen dos circuitos integrados de 512 MB y la otra de 1 GB, ambas de
+4 bits . Se pide:
+a. Indicar cuántos y cuáles circuitos integrados se van a usar.
+b. Armar un mapa de memoria en el que se vea la primera dirección y la última para
+cada circuito integrado.
+c. Decodificar los selectores de integrado (Chip Select).
+d. Dibujar el circuito.
+
+ROM 1GB = 10^30 BYTES ---> A0 hasta A29
+RAM 2GB = 10^31 BYTES ----> A0 hasta A30
+TOTAL 3GB = 10^32 BYTES --> A0 hasta A31
+
+a. RAM 2GB = 1GB (IC1)+ 512MB (IC2)+ 512MB (IC3)
+   ROM 1GB = 512MB (IC4)+ 256MB (IC5)+ 256MB (IC6)
+
+b. 
+1GB ---> A0 .. A29
+512MB--> A0..A28
+256MB--> A0..A27
+
+La primer dirección de un IC es igual a la última dirección del anterior +1.
+
+A31 A30 A29 A28 A27.....  A1  A0
+0   0   0   0   0  .....  0   0   PRIMERA DE IC1
+0   0   1   1   1  .....  1   1   ÚLTIMA DE IC1
+0   1   0   0   0  .....  0   0   PRIMERA DE IC2
+0   1   0   1   1  .....  1   1   ÚLTIMA DE IC2
+0   1   1   0   0  .....  0   0   PRIMERA DE IC3
+0   1   1   1   1  .....  1   1   ÚLTIMA DE IC3
+1   0   0   0   0  .....  0   0   PRIMERA DE IC4
+1   0   0   1   1  .....  1   1   ÚLTIMA DE IC4
+1   0   1   0   0  .....  0   0   PRIMERA DE IC5
+1   0   1   0   1  .....  1   1   ÚLTIMA DE IC5
+1   0   1   1   0  .....  0   0   PRIMERA DE IC6
+1   0   1   1   1  .....  1   1   ÚLTIMA DE IC6
+
+La última dirección no es todo unos porque con 32 bits se puede direccionar 4 GBytes y sólo tenemos 3.
+
+c.              
+A31 A30 A29 A28   IC
+0   0   0   0     IC1  A31 = 0 Y A30 = 0
+0   0   1   1     
+_____________________
+0   1   0   0     IC2  A31 = 0,  A30 = 1 Y A29 = 0
+0   1   0   1   
+_____________________
+0   1   1   0     IC3  A31 = 0,  A30 = 1 Y A29 = 1
+0   1   1   1   
+_____________________
+1   0   0   0     IC4  A31 = 1,  A30 = 0 Y A29 = 0
+1   0   0   1   
+______________________
+1   0   1   0     IC5  A31 = 1,  A30 = 0, A29 = 1 Y A28 = 0
+1   0   1   0   
+______________________
+1   0   1   1     IC6  A31 = 1,  A30 = 0, A29 = 1 Y A28 = 1 
+1   0   1   1   
+
+U6
+a. (Verdadero/Falso): una pista se divide en varias unidades llamadas sectores.
+b. (Verdadero/Falso): un sector consiste en varias pistas.
+c. Un disco de 4 platos tiene 36.000 cilindros. ¿Cuántas pistas tiene?
+
+Googlear disco magnético cilindros sectores pistas cabezas y ver las imagenes
+
+a. verdadero
+b. falso
+c. cada cilindro es un cilindro imaginario que atraviesa la misma pista de cada plato.
+4 platos x 2 caras por plato x 36.000 pistas por cara = 144.000 pistas

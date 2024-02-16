@@ -1,0 +1,93 @@
+FINAL-3)Escribir un código ARM para el procesador que controla un detector de presencia que 
+consiste en y un sensor y una alarma. 
+El mapeo de memoria es el siguiente:
+La dirección FF200040h contiene un 1 si el sensor detecta presencia o un 0 sin no la detecta.
+La dirección FF200000h hace sonar la alarma si su contenido es un 1 y no suena si es 0.
+
+.equ SENSOR, 0XFF200040h
+.equ ALARMA, 0xFF200000h
+
+.global _start
+start: 
+    ldr r0,=SENSOR
+    ldr r1,[r0]-> lectura 
+
+    ldr r0, =ALARMA
+    str r1,[r0] - > escritura
+
+.end
+
+FINAL-2)Escribir un código ARM, para el procesador de un surtidor de nafta, que muestre el
+importe a pagar. El mapeo de memoria del surtidor es el siguiente:
+Dirección: FF200050h. Contenido: Litros de nafta vendidos.
+Dirección: FF200040h. Contenido: Precio del litro de nafta.
+Dirección: FF200000h. Contenido: Importe a pagar que muestra un display.
+
+.equ 
+
+
+
+
+
+FINAL-1)Hacer un código ARM que multiplique cada número del arreglo x 3 y sume todos. 
+
+
+[EJERCICIOS DE PRACTICA CREADOS X CHATGPT]
+
+1) Escribe un código ARM para un microcontrolador que controla un sistema de control de temperatura. El mapeo de memoria es el siguiente:
+Dirección FF200040h contiene la temperatura actual medida por un sensor.
+Dirección FF200000h contiene la temperatura objetivo que se debe alcanzar.
+El sistema debe activar un sistema de enfriamiento si la temperatura actual es mayor que la temperatura objetivo.
+
+
+
+2) Desarrolla un código ARM para un dispositivo de monitoreo de nivel de agua en un tanque. El mapeo de memoria es el siguiente:
+Dirección FF200040h contiene el nivel actual de agua en el tanque.
+Dirección FF200000h contiene el nivel máximo permitido de agua.
+El dispositivo debe activar una bomba para agregar agua al tanque si el nivel actual es menor que el nivel máximo permitido.
+
+
+3) Crea un código ARM para un sistema de control de acceso basado en tarjetas. El mapeo de memoria es el siguiente:
+Dirección FF200040h contiene el estado de la puerta (abierta/cerrada).
+Dirección FF200000h contiene el estado de la tarjeta (válida/inválida).
+El sistema debe abrir la puerta si se presenta una tarjeta válida.
+
+
+4)Elabora un código ARM para un sistema de iluminación automática. El mapeo de memoria es el siguiente:
+Dirección FF200040h contiene la intensidad de luz actual medida por un sensor.
+Dirección FF200000h contiene el umbral de luz deseado.
+El sistema debe encender/apagar las luces según si la intensidad de luz actual es menor/mayor que el umbral deseado.
+
+
+
+
+5) Diseña un código ARM para un sistema de control de velocidad para un motor. El mapeo de memoria es el siguiente:
+Dirección FF200040h contiene la velocidad actual del motor.
+Dirección FF200000h contiene la velocidad deseada del motor.
+El sistema debe ajustar la velocidad del motor para que coincida con la velocidad deseada.
+
+6)Escribir un código ARM para un microcontrolador que controle un semáforo de tres luces (rojo, amarillo, verde) con las siguientes especificaciones:
+La dirección FF200040h contiene un valor que indica el estado del semáforo (0 para rojo, 1 para amarillo, 2 para verde).
+La dirección FF200000h activa las luces del semáforo.
+
+7) Escribir un código ARM para un dispositivo que controla el nivel de agua en un tanque:
+La dirección FF200040h contiene el nivel actual de agua medido por un sensor.
+La dirección FF200050h contiene el nivel máximo permitido en el tanque.
+La dirección FF200000h activa una bomba para llenar el tanque si el nivel actual es menor que el nivel máximo.
+
+
+8)Escribir un código ARM para un sistema de control de acceso con tarjeta RFID:
+La dirección FF200040h indica si se ha detectado una tarjeta RFID válida (1 para sí, 0 para no).
+La dirección FF200000h activa un mecanismo de apertura de puerta si se detecta una tarjeta válida.
+
+
+9) Escribir un código ARM para un sistema de control de iluminación en un edificio:
+La dirección FF200040h contiene el nivel de luminosidad actual medido por un sensor.
+La dirección FF200050h contiene el nivel de luminosidad deseado configurado por el usuario.
+La dirección FF200000h activa o desactiva las luces para mantener la luminosidad en el nivel deseado.
+
+
+10) Escribir un código ARM para un sistema de control de temperatura en una casa inteligente:
+La dirección FF200040h contiene la temperatura actual medida por un sensor.
+La dirección FF200050h contiene la temperatura objetivo establecida por el usuario.
+La dirección FF200000h activa el sistema de calefacción si la temperatura actual es menor que la temperatura objetivo, o el sistema de refrigeración si es mayor.
