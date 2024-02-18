@@ -13,87 +13,81 @@ comenzar en la dirección 0100h.
     mov bx, 0400h 
 
     primera: 
-        cmp cx, 00h
         mov ax, [si]
-        mov [bx],ax
+        add [bx],ax
         dec cx 
         inc bx
         inc bx
         inc si 
-        loop primera 
+        cmp cx, 00h
+        jne primera
 
     mov cx,000ah 
 
     segunda:
-        cmp cx, 00h
-        mov ax, [si]
-        mov [bx],ax
+        mov ax, [di]
+        add [bx],ax
         dec cx 
         inc bx
         inc bx
-        inc si 
-        loop segunda 
+        inc di 
+        cmp cx, 00h
+        jne segunda 
 
     int 20h
 
 
 .ret
 
+-> este hace esto: cad a: [1,2,3] cad b: [2,3,5]; cadena resultante: [1+2, 2+3,]
+.org 100h 
 
-2)Crea un programa en ensamblador que copie una cadena de caracteres a otra, pero
-cada letra en la nueva cadena debe ser convertida a mayúscula si es una vocal, y 
-a minúscula si no lo es. Las cadenas comienzan en las direcciones de memoria 
-0200h y 0300h respectivamente, y la nueva cadena debe almacenarse a partir de la
-dirección 0400h. El programa debe comenzar en la dirección 0100h.
-muy dificil che 
+    mov cx, 000ah
+    mov si, 0200h
+    mov di, 0300h
+    mov bx, 0400h
+sumar: 
+        mov ax,[si]
+        mov dx,[di]
+        add ax, dx
+        mov [bx],ax 
+        inc si
+        inc di 
+        inc bx
+        dec cx
+        cmp cx,00h
+        jne sumar
 
-
-3) Desarrolla un programa en ensamblador que encuentre el mayor elemento en un
-arreglo de enteros de 16 bits. El arreglo comienza en la dirección de memoria 
-0200h y tiene una longitud de 10 elementos. El resultado, es decir, el mayor 
-número encontrado, debe ser almacenado en la dirección de memoria 0400h. El 
-programa debe comenzar en la dirección 0100h.
-uno de busqueda, no gracias 
-
-
-4) Escribe un programa en ensamblador que determine si una cadena de caracteres 
-es un palíndromo o no. La cadena comienza en la dirección de memoria 0200h y 
-tiene una longitud de 10 caracteres. El programa debe imprimir "Es un palíndromo"
-si lo es, y "No es un palíndromo" si no lo es. El programa debe comenzar en la 
-dirección 0100h.
+.ret
 
 
-5) Crea un programa en ensamblador que encuentre la suma de los dígitos de un 
+
+2) Crea un programa en ensamblador que encuentre la suma de los dígitos de un 
 número entero de 16 bits. El número comienza en la dirección de memoria 0200h. El
  resultado debe ser almacenado en la dirección de memoria 0400h. El programa debe 
 comenzar en la dirección 0100h.
 
+    .org 100h
+    
+    mov si, 0200h       ; Dirección del número entero
+    mov di, 0400h       ; Dirección para almacenar el resultado
+    mov cx, 4           ; Inicializar contador para recorrer los cuatro dígitos
 
-6) Desarrolla un programa en ensamblador que encuentre el producto escalar de dos 
-vectores de enteros de 16 bits. Los vectores comienzan en las direcciones de
- memoria 0200h y 0300h respectivamente, y tienen una longitud de 5 elementos cada
- uno. El resultado debe almacenarse en la dirección de memoria 0400h. El programa 
-debe comenzar en la dirección 0100h.
+    mov ax, 0           ; Inicializar acumulador para la suma de los dígitos
+
+    sum_digits:
+        mov bx, 10      ; Divisor para obtener el dígito menos significativo
+        div bx          ; Divide ax por 10, resultado en ax, residuo en dx
+        add ax, dx      ; Sumar el dígito al acumulador
+        loop sum_digits ; Repetir el proceso para los 4 dígitos
+
+    mov [di], ax        ; Almacenar la suma en la dirección de memoria 0400h
+
+    .ret
 
 
-7) Escribe un programa en ensamblador que determine si una cadena de caracteres
- es un palíndromo o no, pero esta vez utilizando un enfoque recursivo. La cadena
- comienza en la dirección de memoria 0200h y tiene una longitud de 10 caracteres.
- El programa debe imprimir "Es un palíndromo" si lo es, y "No es un palíndromo" si 
-no lo es. El programa debe comenzar en la dirección 0100h.
+3) Hay dos cadenas con numeros se ubbcan en 0200h, y 0300h cada una tiene
+ 5 numeros, hay que sumar cada uno segun su posicion respectivamente y ubicarlo en
+ la posicion 
 
-8) Crea un programa en ensamblador que calcule el factorial de un número entero 
-de 8 bits. El número comienza en la dirección de memoria 0200h. El resultado debe 
-almacenarse en la dirección de memoria 0300h. El programa debe comenzar en la
- dirección 0100h.
 
-9)Desarrolla un programa en ensamblador que ordene un arreglo de enteros de 16 bits 
-en orden ascendente utilizando el algoritmo de burbuja. El arreglo comienza en la
- dirección de memoria 0200h y tiene una longitud de 8 elementos. El programa debe 
-comenzar en la dirección 0100h.
-
-10) Escribe un programa en ensamblador que convierta un número entero de 8 bits 
-en su representación binaria y almacene cada dígito binario en un arreglo de 
-caracteres. El número comienza en la dirección de memoria 0200h y el arreglo de 
-caracteres debe comenzar en la dirección de memoria 0300h. El programa debe 
-comenzar en la dirección 0100h.
