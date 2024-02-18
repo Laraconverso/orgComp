@@ -1,0 +1,62 @@
+1) Ecribe un programa en ensamblador que sume los elementos de dos arreglos de 
+enteros de igual longitud y almacene el resultado en un tercer arreglo. Los 
+arreglos comienzan en las direcciones de memoria 0200h y 0300h respectivamente, y
+el resultado debe almacenarse a partir de la dirección 0400h. El programa debe 
+comenzar en la dirección 0100h.
+
+
+2)Crea un programa en ensamblador que copie una cadena de caracteres a otra, pero
+cada letra en la nueva cadena debe ser convertida a mayúscula si es una vocal, y 
+a minúscula si no lo es. Las cadenas comienzan en las direcciones de memoria 
+0200h y 0300h respectivamente, y la nueva cadena debe almacenarse a partir de la
+dirección 0400h. El programa debe comenzar en la dirección 0100h.
+
+
+3) Desarrolla un programa en ensamblador que encuentre el mayor elemento en un
+arreglo de enteros de 16 bits. El arreglo comienza en la dirección de memoria 
+0200h y tiene una longitud de 10 elementos. El resultado, es decir, el mayor 
+número encontrado, debe ser almacenado en la dirección de memoria 0400h. El 
+programa debe comenzar en la dirección 0100h.
+
+
+4) Escribe un programa en ensamblador que determine si una cadena de caracteres 
+es un palíndromo o no. La cadena comienza en la dirección de memoria 0200h y 
+tiene una longitud de 10 caracteres. El programa debe imprimir "Es un palíndromo"
+si lo es, y "No es un palíndromo" si no lo es. El programa debe comenzar en la 
+dirección 0100h.
+
+
+5) Crea un programa en ensamblador que encuentre la suma de los dígitos de un 
+número entero de 16 bits. El número comienza en la dirección de memoria 0200h. El
+ resultado debe ser almacenado en la dirección de memoria 0400h. El programa debe 
+comenzar en la dirección 0100h.
+
+
+6) Desarrolla un programa en ensamblador que encuentre el producto escalar de dos 
+vectores de enteros de 16 bits. Los vectores comienzan en las direcciones de
+ memoria 0200h y 0300h respectivamente, y tienen una longitud de 5 elementos cada
+ uno. El resultado debe almacenarse en la dirección de memoria 0400h. El programa 
+debe comenzar en la dirección 0100h.
+
+
+7) Escribe un programa en ensamblador que determine si una cadena de caracteres
+ es un palíndromo o no, pero esta vez utilizando un enfoque recursivo. La cadena
+ comienza en la dirección de memoria 0200h y tiene una longitud de 10 caracteres.
+ El programa debe imprimir "Es un palíndromo" si lo es, y "No es un palíndromo" si 
+no lo es. El programa debe comenzar en la dirección 0100h.
+
+8) Crea un programa en ensamblador que calcule el factorial de un número entero 
+de 8 bits. El número comienza en la dirección de memoria 0200h. El resultado debe 
+almacenarse en la dirección de memoria 0300h. El programa debe comenzar en la
+ dirección 0100h.
+
+9)Desarrolla un programa en ensamblador que ordene un arreglo de enteros de 16 bits 
+en orden ascendente utilizando el algoritmo de burbuja. El arreglo comienza en la
+ dirección de memoria 0200h y tiene una longitud de 8 elementos. El programa debe 
+comenzar en la dirección 0100h.
+
+10) Escribe un programa en ensamblador que convierta un número entero de 8 bits 
+en su representación binaria y almacene cada dígito binario en un arreglo de 
+caracteres. El número comienza en la dirección de memoria 0200h y el arreglo de 
+caracteres debe comenzar en la dirección de memoria 0300h. El programa debe 
+comenzar en la dirección 0100h.

@@ -23,13 +23,61 @@ Dirección: FF200050h. Contenido: Litros de nafta vendidos.
 Dirección: FF200040h. Contenido: Precio del litro de nafta.
 Dirección: FF200000h. Contenido: Importe a pagar que muestra un display.
 
-.equ 
+.equ LITROS, 0xFF200050h
+.equ PRECIO, 0xFF200040h
+.equ DISPLAY, 0xFF200000h
+
+.global _start 
+start: 
+    ldr r0,=LITROS
+    ldr r1,[r0]
+
+    LDR R0,=PRECIO
+    LDR R2,[R0] 
+
+    MUL R3,R1,R2
+
+    LDR R0,=DISPLAY
+    STR R3,[R0]
+
+.end
 
 
 
 
 
 FINAL-1)Hacer un código ARM que multiplique cada número del arreglo x 3 y sume todos. 
+
+.equ EXIT, 0x11
+.equ TRES, 0x3h
+.data 
+    cadena: .word 2,1,3
+    cant : .word 3
+    resultado: .word 0
+.text
+.global _start
+
+start: 
+        ldr r0,=cadena
+        ldr r1,=cant
+        ldr r2,#0
+        ldr r3,#0 
+        ldr r4,=TRES
+       
+        loop:
+            ldr r5,[r0]
+            mul r6,r5,[r3]
+            add r0,r0,#4
+            add r0,r0,#1
+            ldr r7,[r1]
+            cmp r1,r7
+            bne loop
+
+       ldr r8,=resultado
+        str r4,[r8]
+
+.end
+
 
 
 [EJERCICIOS DE PRACTICA CREADOS X CHATGPT]
@@ -39,12 +87,38 @@ Dirección FF200040h contiene la temperatura actual medida por un sensor.
 Dirección FF200000h contiene la temperatura objetivo que se debe alcanzar.
 El sistema debe activar un sistema de enfriamiento si la temperatura actual es mayor que la temperatura objetivo.
 
+.equ TMP_ACTUAL,0xFF200040h
+.equ TEMP_OBJETIVO, 0xFF200000h
+
+.text
+.global _start:
+
+start: 
+    ldr r0,=TMP_ACTUAL
+    ldr r1,[r0]
+
+    ldr r0,=TEMP_OBJETIVO
+    ldr r2,[r0]
+    cmp r1,r2
+    bgt activar 
+    b fin
+    
+    activar: 
+        str r1,[r2]
+    
+    fin:
+        swi 0x11
+
+.end
 
 
 2) Desarrolla un código ARM para un dispositivo de monitoreo de nivel de agua en un tanque. El mapeo de memoria es el siguiente:
 Dirección FF200040h contiene el nivel actual de agua en el tanque.
 Dirección FF200000h contiene el nivel máximo permitido de agua.
 El dispositivo debe activar una bomba para agregar agua al tanque si el nivel actual es menor que el nivel máximo permitido.
+
+
+
 
 
 3) Crea un código ARM para un sistema de control de acceso basado en tarjetas. El mapeo de memoria es el siguiente:
@@ -69,6 +143,11 @@ El sistema debe ajustar la velocidad del motor para que coincida con la velocida
 6)Escribir un código ARM para un microcontrolador que controle un semáforo de tres luces (rojo, amarillo, verde) con las siguientes especificaciones:
 La dirección FF200040h contiene un valor que indica el estado del semáforo (0 para rojo, 1 para amarillo, 2 para verde).
 La dirección FF200000h activa las luces del semáforo.
+.equ COLOR, 0xFF200040h
+.equ ON, 0xFF200000h
+
+
+
 
 7) Escribir un código ARM para un dispositivo que controla el nivel de agua en un tanque:
 La dirección FF200040h contiene el nivel actual de agua medido por un sensor.
@@ -81,13 +160,81 @@ La dirección FF200040h indica si se ha detectado una tarjeta RFID válida (1 pa
 La dirección FF200000h activa un mecanismo de apertura de puerta si se detecta una tarjeta válida.
 
 
+
+
 9) Escribir un código ARM para un sistema de control de iluminación en un edificio:
 La dirección FF200040h contiene el nivel de luminosidad actual medido por un sensor.
 La dirección FF200050h contiene el nivel de luminosidad deseado configurado por el usuario.
 La dirección FF200000h activa o desactiva las luces para mantener la luminosidad en el nivel deseado.
+
+.equ LUZ_ACTUAL,0xFF200040h
+.equ LUZ_DESEADA,0xFF200050h
+.equ ON,0xFF200000h
+
+.text
+.global _start:
+start:
+    ldr r0,=LUZ_ACTUAL
+    ldr r1,[r0]
+
+    ldr r0=,LUZ_DESEADA
+    ldr r2,[r0]
+
+    cmp r1,r2
+    blt activar 
+    b fin
+
+    activar:
+        ldr r0,=ON
+        str r1,[r0]
+
+    fin:
+        swi 0x11
+
+
+.end
 
 
 10) Escribir un código ARM para un sistema de control de temperatura en una casa inteligente:
 La dirección FF200040h contiene la temperatura actual medida por un sensor.
 La dirección FF200050h contiene la temperatura objetivo establecida por el usuario.
 La dirección FF200000h activa el sistema de calefacción si la temperatura actual es menor que la temperatura objetivo, o el sistema de refrigeración si es mayor.
+
+[o desactivar si no ]
+
+.equ TEMP_MEDIA,0xFF200040h
+.equ TEMP_OBJETIVO, 0xFF200050h
+.equ ON, 0XFF200000h
+
+.text 
+
+.global _start:
+
+start:
+
+    ldr r0,=TEMP_MEDIA
+    ldr r1,[r0]
+
+    ldr r0,=TEMP_OBJETIVO
+    ldr r2,[r0]
+
+    cmp r1, r2
+    ble activar 
+
+    b desactivar 
+
+    activar:
+        ldr r0,=ON 
+        str r1,[r0]
+        b fin
+
+    desacrivar:
+        ldr r0,=ON
+        str r2,[r0]
+        b fin
+
+    fin: 
+        swi 0x11
+
+
+.end
