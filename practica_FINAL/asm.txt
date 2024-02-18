@@ -4,12 +4,48 @@ arreglos comienzan en las direcciones de memoria 0200h y 0300h respectivamente, 
 el resultado debe almacenarse a partir de la dirección 0400h. El programa debe 
 comenzar en la dirección 0100h.
 
+(supongo que la longitud es 10)
+
+.org 100h 
+    mov cx, 000ah
+    mov si, 0200h
+    mov di, 0300h
+    mov bx, 0400h 
+
+    primera: 
+        cmp cx, 00h
+        mov ax, [si]
+        mov [bx],ax
+        dec cx 
+        inc bx
+        inc bx
+        inc si 
+        loop primera 
+
+    mov cx,000ah 
+
+    segunda:
+        cmp cx, 00h
+        mov ax, [si]
+        mov [bx],ax
+        dec cx 
+        inc bx
+        inc bx
+        inc si 
+        loop segunda 
+
+    int 20h
+
+
+.ret
+
 
 2)Crea un programa en ensamblador que copie una cadena de caracteres a otra, pero
 cada letra en la nueva cadena debe ser convertida a mayúscula si es una vocal, y 
 a minúscula si no lo es. Las cadenas comienzan en las direcciones de memoria 
 0200h y 0300h respectivamente, y la nueva cadena debe almacenarse a partir de la
 dirección 0400h. El programa debe comenzar en la dirección 0100h.
+muy dificil che 
 
 
 3) Desarrolla un programa en ensamblador que encuentre el mayor elemento en un
@@ -17,6 +53,7 @@ arreglo de enteros de 16 bits. El arreglo comienza en la dirección de memoria
 0200h y tiene una longitud de 10 elementos. El resultado, es decir, el mayor 
 número encontrado, debe ser almacenado en la dirección de memoria 0400h. El 
 programa debe comenzar en la dirección 0100h.
+uno de busqueda, no gracias 
 
 
 4) Escribe un programa en ensamblador que determine si una cadena de caracteres 
