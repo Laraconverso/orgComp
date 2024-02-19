@@ -163,9 +163,9 @@ XX?XX?XX -> número que se encuentra en [3B]
 08 8212 -> R2 = R1 AND R0 
 0A B216 -> si R0 y R2 son iguales salta al espacio 16
 0C 2000 -> R0 = 00000000 
-0E B216  -> si R0 y R2 son iguales Salta a 16
-10 2024  -> R0 = 00100100 
-12 7412   -> R4 = R2 OR R1 
+0E B216 -> si R0 y R2 son iguales Salta a 16
+10 2024 -> R0 = 00100100 
+12 7412 -> R4 = R2 OR R1 
 14 B01A -> Salta a 1A 
 16 2024 -> R0 = 00100100 
 18 9412 -> R4 = R2 XOR R1 

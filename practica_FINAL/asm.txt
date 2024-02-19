@@ -117,3 +117,38 @@ loop:
     jne loop
 
 ret
+
+
+invertir la cadena 'mircoprocesador'
+
+.org
+
+jmp start 
+
+ms db 'mircoprocesador',0
+
+next_char:
+    mov si,0
+
+start:
+    mov al,ms[si]
+    cmp al,0h
+    je inverse
+    mov ah,0eh
+    int 10h
+    inc si 
+    jmp next_char
+
+inverse:
+    mov al,ms[si-1]
+    cmp si,0h
+    je stop
+    mov ah,0eh
+    int 10h 
+    dec si
+    jmp inverse
+
+stop:
+    int 21h
+
+.ret

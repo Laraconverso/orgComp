@@ -29,4 +29,21 @@ sin acceso aleatorio = t prom para leer/escribir = t prom de acceso  + numero de
 
 //////////////////
 DISCOS 
-preguntas
+
+partes del disco de mayor a menor 
+
+disco
+
+cara/superficies
+
+cilindros
+
+
+Un disco de 4 platos tiene 36.000 cilindros. ¿Cuántas pistas tiene?
+-> si los discos tienen 2 caras: 4 x 2 x 36000 = 288000
+-> si los discos tienen 1 cara: 4 x 36000 = 144000
+
+
+capacidad = superficies x (bytes x sector) x cilindros x (sectores x pista)
+
+velocidad = 
